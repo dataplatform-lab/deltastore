@@ -1,0 +1,56 @@
+*#*#
+*.#*
+*.iml
+*.ipr
+*.iws
+*.pyc
+*.pyo
+*.swp
+*.log
+*~
+.DS_Store
+.bsp
+.cache
+.classpath
+.generated-mima*
+.project
+.bloop
+.pydevproject
+.scala_dependencies
+.settings
+build/*.jar
+build/apache-maven*
+build/scala*
+build/zinc*
+cache
+target
+dependency-reduced-pom.xml
+derby.log
+log/
+logs/
+out/
+project/boot/
+project/plugins/lib_managed/
+project/plugins/project/build.properties
+project/plugins/src_managed/
+scalastyle-on-compile.generated.xml
+scalastyle-output.xml
+scalastyle.txt
+spark-*-bin-*.tgz
+spark-tests.log
+
+# For SBT
+.jvmopts
+
+# For Python
+*.egg-info
+.pytest_cache
+
+# For Metals
+*.metals
+
+# For venv
+*.venv
+
+# For RocksDB
+.rocksdb

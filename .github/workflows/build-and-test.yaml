@@ -1,0 +1,75 @@
+name: Build and Test
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  server:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Cache Scala, SBT
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.sbt
+            ~/.ivy2
+            ~/.cache/coursier
+          key: build-and-test-server
+      - name: Install Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Run tests
+        run: sbt test
+
+  python:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.9]
+    env:
+      PYTHONPATH: ./python
+    services:
+      minio:
+        image: dataplatformlab/minio
+        ports:
+          - 9000:9000
+        options: --health-cmd "curl http://localhost:9000/minio/health/live"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Cache Scala, SBT
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.sbt
+            ~/.ivy2
+            ~/.cache/coursier
+          key: build-and-test-python
+      - name: Install Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Install Python3
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+      - name: Install dependencies
+        run: |
+          pip3 install -r python/deltastore/requirements.txt
+      - name: Copy samples to minio
+        run: |
+          wget https://dl.min.io/client/mc/release/linux-amd64/mc && chmod +x ./mc
+          ./mc config host add minio http://localhost:9000 minioadmin minioadmin
+          ./mc mb minio/testset100
+          ./mc cp --recursive ${{ github.workspace }}/examples/samples/testset100/ minio/testset100/
+          ./mc mb minio/testset100-multilogs
+          ./mc cp --recursive ${{ github.workspace }}/examples/samples/testset100-multilogs/ minio/testset100-multilogs/
+      - name: Build server
+        run: sbt package
+      - name: Run tests
+        run: |
+          python3 -m pytest python/deltastore/tests
