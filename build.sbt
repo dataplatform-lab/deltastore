@@ -8,7 +8,7 @@ val sparkVersion = sys.env.getOrElse("SPARK_VERSION", "3.3.2")
 val parquetVersion = sys.env.getOrElse("PARQUET_VERSION", "1.12.3")
 val parquet4sVersion = sys.env.getOrElse("PARQUET4S_VERSION", "1.9.4")
 val deltaVersion = sys.env.getOrElse("DELTA_VERSION", "2.2.0")
-val jreBaseImage = sys.env.getOrElse("JRE_BASE_IMAGE", "openjdk:11-jre-slim")
+val jreBaseImage = sys.env.getOrElse("JRE_BASE_IMAGE", "openjdk:17-jdk-slim")
 
 lazy val commonSettings = Seq(
   organization := "io.delta",
