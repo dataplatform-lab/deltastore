@@ -8,11 +8,11 @@ Our main goals are near real-time query against the up-to-date, and access contr
 
 ### Caching DeltaLogs
 
-We support deltalogs caching using a KeyValue storage like RocksDB. We create a cache database per a deltatable, and update newly appended deltalogs to the cache database incrementally and periodically to keep the up-to-date.
+We support deltalogs caching using a key-value storage like RocksDB. We create a cache database per each deltatable, and update newly appended deltalogs to the cache database incrementally and periodically to keep the up-to-date.
 
-We can optimize partition filterings using range queries if you are using RocksDB for deltalogs caching. A key in a cache database is a AddFile's path which has partition columns and values as a prefix. So, we can scan deltalogs very fast using a prefix which is generated from predicate hints.
+We can optimize partition filterings using range queries if you are using RocksDB for deltalogs caching. A key in a cache database is a AddFile's path which contains partition columns and values as a prefix. So, we can scan deltalogs very fast using a prefix which is generated from predicate hints.
 
-We can support versioning efficiently. A value in a cache database contains a 'from' field that is a version number when a AddFile is added, and a 'to' field that is a version number when a AddFile is removed. So, we can check if a AddFile is valid using 'from' and 'to' fields very fast.
+We can support versioning efficiently. A value in a cache database contains a 'from' field that is a version number when a AddFile is added, and a 'to' field that is a version number when a AddFile is removed. So, we can check if a AddFile is valid using 'from' and 'to' fields easily.
 
 ### Configuration and Authorization
 
