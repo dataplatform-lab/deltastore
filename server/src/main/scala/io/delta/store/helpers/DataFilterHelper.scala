@@ -32,7 +32,7 @@ import scala.util.Try
 import scala.util.control.Breaks
 import scala.util.control.NonFatal
 
-import io.delta.store.{DeltaSharingClassCastException, DeltaStoreAddFile}
+import io.delta.store.DeltaStoreAddFile
 
 case class AddFileStats(
     minValues: Map[String, String],
