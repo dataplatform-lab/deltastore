@@ -393,10 +393,17 @@ class DeltaStoreRocksDBVersioningEngine(
     val value = dbHandle.get(key.getBytes())
     if (value != null) {
       val item = JsonHelper.fromJson[DeltaStoreDBAddFile](new String(value))
-
-      if (item.from <= version.get && (item.to == 0 || item.to > version.get)) {
-        item.action
-      } else { defvalue }
+      if (version.isDefined) {
+        if (
+          item.from <= version.get && (item.to == 0 || item.to > version.get)
+        ) {
+          item.action
+        } else { defvalue }
+      } else {
+        if (item.to == 0) {
+          item.action
+        } else { defvalue }
+      }
     } else { defvalue }
   }
 
@@ -476,7 +483,9 @@ class DeltaStoreRocksDBVersioningEngine(
             val value = new String(iter.value)
             val item = JsonHelper.fromJson[DeltaStoreDBAddFile](value)
 
-            items += item.action
+            if (item.to == 0) {
+              items += item.action
+            }
             iter.next()
           } else {
             loop.break
@@ -530,7 +539,9 @@ class DeltaStoreRocksDBVersioningEngine(
               val value = new String(iter.value)
               val item = JsonHelper.fromJson[DeltaStoreDBAddFile](value)
 
-              items += item.action
+              if (item.to == 0) {
+                items += item.action
+              }
             }
             iter.next()
           }
@@ -561,7 +572,9 @@ class DeltaStoreRocksDBVersioningEngine(
             val value = new String(iter.value)
             val item = JsonHelper.fromJson[DeltaStoreDBAddFile](value)
 
-            items += item.action
+            if (item.to == 0) {
+              items += item.action
+            }
           }
           iter.next()
         }
@@ -606,7 +619,9 @@ class DeltaStoreRocksDBVersioningEngine(
           val value = new String(iter.value)
           val item = JsonHelper.fromJson[DeltaStoreDBAddFile](value)
 
-          items += item.action
+          if (item.to == 0) {
+            items += item.action
+          }
         }
         iter.next()
       }
