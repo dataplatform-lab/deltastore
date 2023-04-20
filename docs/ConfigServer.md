@@ -172,5 +172,6 @@ ConfigServer must include a JSON formatted body of a HTTP response as below.
     repository: string,   // a repository name which is used for saving this table's log caches
     filesystem: string,   // a filesystem name which contains this table
     location: string      // a location in a filesystem which contains this table
+    versioning: boolean   // true if versioning support is enabled
 }
 ```
