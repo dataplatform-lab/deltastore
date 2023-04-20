@@ -16,7 +16,7 @@ We can support versioning efficiently. A value in a cache database contains a 'f
 
 ### Configuration and Authorization
 
-We support REST protocols for [configuration](https://github.com/dataplatform-lab/deltastore/docs/ConfigServer.md) and [authorization](https://github.com/dataplatform-lab/deltastore/docs/AuthZServer.md) to develop your own management servers.
+We support REST protocols for [configuration](https://github.com/dataplatform-lab/deltastore/blob/main/docs/ConfigServer.md) and [authorization](https://github.com/dataplatform-lab/deltastore/blob/main/docs/AuthZServer.md) to develop your own management servers.
 
 ## Reporting issues
 
@@ -24,7 +24,7 @@ We use [GitHub Issues](https://github.com/dataplatform-lab/deltastore/issues) to
 
 ## Contributing
 
-We welcome contributions to DeltaStore. See our [CONTRIBUTING.md](https://github.com/dataplatform-lab/deltastore/blob/master/CONTRIBUTING.md) for more details.
+We welcome contributions to DeltaStore. See our [CONTRIBUTING.md](https://github.com/dataplatform-lab/deltastore/blob/main/CONTRIBUTING.md) for more details.
 
 ## Building
 
@@ -76,4 +76,4 @@ Refer to [SBT docs](https://www.scala-sbt.org/1.x/docs/Command-Line-Reference.ht
 
 ## License
 
-Apache License 2.0, see [LICENSE](https://github.com/dataplatform-lab/deltastore/blob/master/LICENSE.txt).
+Apache License 2.0, see [LICENSE](https://github.com/dataplatform-lab/deltastore/blob/main/LICENSE.txt).
