@@ -23,10 +23,13 @@ import java.util.concurrent.TimeUnit
 import com.google.common.cache.{CacheBuilder, CacheLoader}
 import com.google.common.hash.Hashing
 import io.delta.sharing.server.protocol.{Schema, Share, Table}
+import org.slf4j.LoggerFactory
 
 import io.delta.store.configurations._
 
 class DeltaStoreConfigManager(storeConfig: DeltaStoreConfig) {
+  private val logger = LoggerFactory.getLogger(classOf[DeltaStoreConfigManager])
+
   protected def getFilesystemConfigLoader()
       : CacheLoader[String, DeltaFilesystemConfig] = {
     new CacheLoader[String, DeltaFilesystemConfig]() {
@@ -117,7 +120,9 @@ class DeltaStoreConfigManager(storeConfig: DeltaStoreConfig) {
       val config = filesystemConfigCache.get(key)
       config
     } catch {
-      case e: Exception => null
+      case e: Exception =>
+        logger.error(e.getMessage, e)
+        null
     }
   }
 
@@ -127,7 +132,9 @@ class DeltaStoreConfigManager(storeConfig: DeltaStoreConfig) {
       val config = shareConfigCache.get(key)
       config
     } catch {
-      case e: Exception => null
+      case e: Exception =>
+        logger.error(e.getMessage, e)
+        null
     }
   }
 
@@ -137,7 +144,9 @@ class DeltaStoreConfigManager(storeConfig: DeltaStoreConfig) {
       val config = schemaConfigCache.get(key)
       config
     } catch {
-      case e: Exception => null
+      case e: Exception =>
+        logger.error(e.getMessage, e)
+        null
     }
   }
 
@@ -151,7 +160,9 @@ class DeltaStoreConfigManager(storeConfig: DeltaStoreConfig) {
       val config = tableConfigCache.get(key)
       config
     } catch {
-      case e: Exception => null
+      case e: Exception =>
+        logger.error(e.getMessage, e)
+        null
     }
   }
 

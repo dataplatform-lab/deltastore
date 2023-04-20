@@ -16,9 +16,6 @@
 
 package io.delta.store
 
-class DeltaSharingClassCastException(message: String)
-    extends ClassCastException(message)
-
 class DeltaSharingIllegalArgumentException(message: String)
     extends IllegalArgumentException(message)
 
