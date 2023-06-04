@@ -275,10 +275,7 @@ object DeltaActions {
       /* Whether this commit has blindly appended without caring about existing
        * files
        */
-      isBlindAppend: Option[Boolean],
-      operationMetrics: Option[Map[String, String]],
-      userMetadata: Option[String],
-      engineInfo: Option[String]
+      isBlindAppend: Option[Boolean]
   ) extends Action
       with CommitMarker {
     override def wrap: SingleAction = SingleAction(commitInfo = this)
@@ -306,9 +303,6 @@ object DeltaActions {
         None,
         None,
         None,
-        None,
-        None,
-        None,
         None
       )
     }
@@ -320,10 +314,7 @@ object DeltaActions {
         commandContext: Map[String, String],
         readVersion: Option[Long],
         isolationLevel: Option[String],
-        isBlindAppend: Option[Boolean],
-        operationMetrics: Option[Map[String, String]],
-        userMetadata: Option[String],
-        engineInfo: Option[String]
+        isBlindAppend: Option[Boolean]
     ): CommitInfo = {
       val getUserName = commandContext.get("user").flatMap {
         case "unknown" => None
@@ -342,10 +333,7 @@ object DeltaActions {
         commandContext.get("clusterId"),
         readVersion,
         isolationLevel,
-        isBlindAppend,
-        operationMetrics,
-        userMetadata,
-        engineInfo
+        isBlindAppend
       )
     }
   }
